@@ -1,4 +1,4 @@
-module gitlab.landui.cn/gomod/database
+module github.com/AlexiaChen/database
 
 go 1.20
 
