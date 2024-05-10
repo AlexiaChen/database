@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+
 	"gorm.io/gorm"
 )
 
@@ -37,6 +38,19 @@ func (c *Crud) Delete(filter interface{}) error {
 }
 func (c *Crud) Save(model interface{}) error {
 	return c.Db.Save(model).Error
+}
+
+func (c *Crud) StartTransaction() *gorm.DB {
+	tx := c.Db.Begin()
+	return tx
+}
+
+func CommitTransaction(tx *gorm.DB) error {
+	return tx.Commit().Error
+}
+
+func RollbackTransaction(tx *gorm.DB) error {
+	return tx.Rollback().Error
 }
 
 //func (c *Crud) QueryList(page, size int, count *int64, sort []Sort, searchFieldName []string, searchValue string, filter, result interface{}) {
